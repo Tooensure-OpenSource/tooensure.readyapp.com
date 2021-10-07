@@ -21,5 +21,14 @@
             Email = email;
             Password = password;
         }
+
+        /// <summary>
+        /// Only used for testing
+        /// Implemented in project : ReadyApp.Data.Console
+        /// </summary>
+        public void SetId(int id)
+        {
+            UserId = id;
+        }
     }
 }

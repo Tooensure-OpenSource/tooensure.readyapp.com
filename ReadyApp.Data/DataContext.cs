@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace ReadyApp.Data
 {
-    internal class DataContext : DbContext
+    public class DataContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Business> Businesses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer();
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-EMFSR5P\\TOOENSURE;Initial Catalog=ReadyApp;Integrated Security=True");
         }
 
     }

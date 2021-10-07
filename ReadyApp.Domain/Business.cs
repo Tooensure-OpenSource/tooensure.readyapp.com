@@ -12,11 +12,11 @@ namespace ReadyApp.Domain
         public string Name {  get; private set; }
         public string Description {  get; private set; }
         public string Type {  get; private set; }
-
+        public string Username { get; set; }
         // Constructor instances
         public Business() { }
         /// <summary>
-        /// Create a instance of a business object
+        /// Create a instance of a business object.
         /// </summary>
         /// <param name="name">Sets name of business</param>
         /// <param name="description">Sets description of business</param>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReadyApp.Domain
 {
-    internal class Business
+    public class Business
     {
         public int BusinessId { get; private set; }
         public string Name {  get; private set; }

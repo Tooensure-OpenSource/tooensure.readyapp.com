@@ -13,6 +13,10 @@ namespace ReadyApp.Domain
         public string Description {  get; private set; }
         public string Type {  get; private set; }
         public string Username { get; set; }
+
+        // Forign Keys
+        public int UserId { get; set; }
+        public User User { get; set; }
         // Constructor instances
         public Business() { }
         /// <summary>

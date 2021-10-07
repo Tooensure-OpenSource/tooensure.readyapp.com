@@ -10,7 +10,7 @@ namespace ReadyApp.Data
 {
     internal class DataContext : DbContext
     {
-        
+        public DbSet<User> Users { get; set; }
 
     }
 }

@@ -13,5 +13,10 @@ namespace ReadyApp.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Business> Businesses { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer();
+        }
+
     }
 }

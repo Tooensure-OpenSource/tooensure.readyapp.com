@@ -22,8 +22,9 @@ namespace ReadyApp.Domain
         public int UserId { get; private set; }
         [Required]
         public User User { get; private set; }
+        public List<Customer> Customers { get; set; }
         // Constructor instances
-        public Business() { }
+        public Business() { Customers = new List<Customer>(); }
         /// <summary>
         /// Create a instance of a business object.
         /// </summary>

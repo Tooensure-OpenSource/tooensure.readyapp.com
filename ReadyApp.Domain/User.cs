@@ -14,9 +14,9 @@ namespace ReadyApp.Domain
         public string Password { get; set; }
         public string Name { get; set; }
         public List<Business> Businesses { get; set; }
-
+        public Customer Customer { get; set; }
         // Constructor instances
-        public User() { }
+        public User() { Businesses = new List<Business>(); }
         /// <summary>
         /// Create user object by using this instance
         /// </summary>

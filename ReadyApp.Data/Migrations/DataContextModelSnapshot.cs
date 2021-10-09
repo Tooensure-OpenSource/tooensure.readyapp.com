@@ -23,12 +23,12 @@ namespace ReadyApp.Data.Migrations
                     b.Property<int>("BusinessesBusinessId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersUserId")
+                    b.Property<int>("OwnersUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("BusinessesBusinessId", "UsersUserId");
+                    b.HasKey("BusinessesBusinessId", "OwnersUserId");
 
-                    b.HasIndex("UsersUserId");
+                    b.HasIndex("OwnersUserId");
 
                     b.ToTable("BusinessUser");
                 });
@@ -39,9 +39,6 @@ namespace ReadyApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("AviliableOwnership")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -110,7 +107,7 @@ namespace ReadyApp.Data.Migrations
 
                     b.HasOne("ReadyApp.Domain.User", null)
                         .WithMany()
-                        .HasForeignKey("UsersUserId")
+                        .HasForeignKey("OwnersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

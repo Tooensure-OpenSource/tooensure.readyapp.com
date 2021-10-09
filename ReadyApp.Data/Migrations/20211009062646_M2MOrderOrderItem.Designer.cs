@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReadyApp.Data;
 
 namespace ReadyApp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211009062646_M2MOrderOrderItem")]
+    partial class M2MOrderOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,21 +34,6 @@ namespace ReadyApp.Data.Migrations
                     b.HasIndex("UsersUserId");
 
                     b.ToTable("BusinessUser");
-                });
-
-            modelBuilder.Entity("OrderOrderItem", b =>
-                {
-                    b.Property<int>("OrderItemsOrderItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderReferancesOrderId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderItemsOrderItemId", "OrderReferancesOrderId");
-
-                    b.HasIndex("OrderReferancesOrderId");
-
-                    b.ToTable("OrderOrderItem");
                 });
 
             modelBuilder.Entity("ProductProductItem", b =>
@@ -90,39 +77,6 @@ namespace ReadyApp.Data.Migrations
                     b.HasKey("BusinessId");
 
                     b.ToTable("Businesses");
-                });
-
-            modelBuilder.Entity("ReadyApp.Domain.Order", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("isReady")
-                        .HasColumnType("bit");
-
-                    b.HasKey("OrderId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("ReadyApp.Domain.OrderItem", b =>
-                {
-                    b.Property<int>("OrderItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderItemId");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("ReadyApp.Domain.Product", b =>
@@ -221,21 +175,6 @@ namespace ReadyApp.Data.Migrations
                     b.HasOne("ReadyApp.Domain.User", null)
                         .WithMany()
                         .HasForeignKey("UsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OrderOrderItem", b =>
-                {
-                    b.HasOne("ReadyApp.Domain.OrderItem", null)
-                        .WithMany()
-                        .HasForeignKey("OrderItemsOrderItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ReadyApp.Domain.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrderReferancesOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

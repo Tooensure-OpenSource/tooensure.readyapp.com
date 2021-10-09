@@ -19,6 +19,7 @@ namespace ReadyApp.Domain
         public string Description {  get; private set; }
         public string Type {  get; private set; }
         public List<User> Users { get; set; }
+        public List<Product> Products { get; set; }
 
         // Constructor instances
         public Business() {

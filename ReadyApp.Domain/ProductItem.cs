@@ -18,6 +18,7 @@ namespace ReadyApp.Domain
         public string? Name { get; set; }
         public string? Content { get; set; }
         public DateTime ExperationDate { get; set; }
+        
         public List<Product>? ProductReferances { get; set; }
 
     }

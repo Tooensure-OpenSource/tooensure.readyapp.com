@@ -20,10 +20,12 @@ namespace ReadyApp.Domain
         public string Type {  get; private set; }
         public List<User> Users { get; set; }
         public List<Product> Products { get; set; }
-
+        public List<Order> Orders { get; set; }
         // Constructor instances
         public Business() {
             Users = new List<User>();
+            Products = new List<Product>();
+            Orders = new List<Order>();
         }
         /// <summary>
         /// Create a instance of a business object.

@@ -11,6 +11,7 @@ namespace ReadyApp.Domain
         public int OrderItemId { get; private  set; }
         public int Quantity { get; set; }
         public List<Order>? OrderReferances { get; set; }
+        public Product Product { get; set; }
         /// <summary>
         /// When creating a instance of order a order item instance can create a new referance 
         /// </summary>

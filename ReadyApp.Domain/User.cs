@@ -13,7 +13,8 @@ namespace ReadyApp.Domain
         [Required]
         public string Password { get; set; }
         public List<Business> Businesses { get; set; }
-        
+        public List<Order> Orders { get; set; }
+
         // Constructor instances
         public User() { Businesses = new List<Business>(); }
         /// <summary>

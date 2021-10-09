@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ReadyApp.Domain.inheritances;
+using System.ComponentModel.DataAnnotations;
 
 namespace ReadyApp.Domain
 {
-    public class User
+    public class User : Person
     {
-        [Key]
         public int UserId { get; private set; }
         [Required]
         public string Username { get; set; }
@@ -12,9 +12,8 @@ namespace ReadyApp.Domain
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        public string Name { get; set; }
         public List<Business> Businesses { get; set; }
-        public Customer Customer { get; set; }
+        
         // Constructor instances
         public User() { Businesses = new List<Business>(); }
         /// <summary>
@@ -30,13 +29,5 @@ namespace ReadyApp.Domain
             Password = password;
         }
 
-        /// <summary>
-        /// Only used for testing
-        /// Implemented in project : ReadyApp.Data.Console
-        /// </summary>
-        public void SetId(int id)
-        {
-            UserId = id;
-        }
     }
 }

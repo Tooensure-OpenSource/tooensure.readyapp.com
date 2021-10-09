@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,14 +18,12 @@ namespace ReadyApp.Domain
         public string Username { get; private set; }
         public string Description {  get; private set; }
         public string Type {  get; private set; }
+        public List<Object> Users { get; private set; }
 
-        // Forign Keys
-        public int UserId { get; private set; }
-        [Required]
-        public User User { get; private set; }
-        public List<Customer> Customers { get; set; }
         // Constructor instances
-        public Business() { Customers = new List<Customer>(); }
+        public Business() {
+            Users = new List<Object>();
+        }
         /// <summary>
         /// Create a instance of a business object.
         /// </summary>
@@ -33,10 +32,7 @@ namespace ReadyApp.Domain
         /// <param name="description">Sets description of business</param>
         public Business(User user, string name, string description)
         {
-            UserId = user.UserId;
-            User = user;
-            Name = name;
-            Description = description;
+            
         }
     }
 }

@@ -9,8 +9,8 @@ using ReadyApp.Data;
 namespace ReadyApp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211007080729_Init")]
-    partial class Init
+    [Migration("20211008033537_Init1")]
+    partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,21 @@ namespace ReadyApp.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BusinessUser", b =>
+                {
+                    b.Property<int>("BusinessesBusinessId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OwnersUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BusinessesBusinessId", "OwnersUserId");
+
+                    b.HasIndex("OwnersUserId");
+
+                    b.ToTable("BusinessUser");
+                });
 
             modelBuilder.Entity("ReadyApp.Domain.Business", b =>
                 {
@@ -39,16 +54,11 @@ namespace ReadyApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BusinessId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Businesses");
                 });
@@ -64,7 +74,15 @@ namespace ReadyApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -81,20 +99,19 @@ namespace ReadyApp.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ReadyApp.Domain.Business", b =>
+            modelBuilder.Entity("BusinessUser", b =>
                 {
-                    b.HasOne("ReadyApp.Domain.User", "User")
-                        .WithMany("Businesses")
-                        .HasForeignKey("UserId")
+                    b.HasOne("ReadyApp.Domain.Business", null)
+                        .WithMany()
+                        .HasForeignKey("BusinessesBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ReadyApp.Domain.User", b =>
-                {
-                    b.Navigation("Businesses");
+                    b.HasOne("ReadyApp.Domain.User", null)
+                        .WithMany()
+                        .HasForeignKey("OwnersUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

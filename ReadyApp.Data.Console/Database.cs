@@ -39,5 +39,33 @@ namespace ReadyApp.Data.Console
                 System.Console.WriteLine($"id: {user.UserId}, username: {user.Username}, email: {user.Email}, password: {user.Password}");
             }
         }
+        public static bool UserExist(User user)
+        {
+            var users = _dataContext.Users.ToList();
+
+            return users.Where(
+                u => u.Email == user.Email || u.Username == user.Username
+                &&
+                u.Password == user.Password).Any();
+        }
+        public static User GetUser(User user)
+        {
+            var users = _dataContext.Users.ToList();
+
+            return users.Find(
+            u => u.Email == user.Email || u.Username == user.Username
+            &&
+            u.Password == user.Password);
+            
+        }
+        //public static void GetCustomers(string text)
+        //{
+        //    var customers = _dataContext.Customer.ToList();
+        //    System.Console.WriteLine($"{text}: User count is {customers.Count()}");
+        //    foreach (var customer in customers)
+        //    {
+        //        System.Console.WriteLine($"id: {customer.CustomerId}, userId: {customer.UserId}");
+        //    }
+        //}
     }
 }

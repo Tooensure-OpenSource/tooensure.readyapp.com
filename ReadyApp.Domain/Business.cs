@@ -18,11 +18,19 @@ namespace ReadyApp.Domain
         public string Username { get; private set; }
         public string Description {  get; private set; }
         public string Type {  get; private set; }
-        public List<Object> Users { get; private set; }
+        public List<User> Users { get; set; }
 
         // Constructor instances
         public Business() {
-            Users = new List<Object>();
+            Users = new List<User>();
+        }
+        /// <summary>
+        /// Create a instance of a business object.
+        /// </summary>
+        /// <param name="user">Sets user and passes that user id into forign user id</param>
+        public Business(List<User> users)
+        {
+            Users = users;
         }
         /// <summary>
         /// Create a instance of a business object.
@@ -30,9 +38,5 @@ namespace ReadyApp.Domain
         /// <param name="user">Sets user and passes that user id into forign user id</param>
         /// <param name="name">Sets name of business</param>
         /// <param name="description">Sets description of business</param>
-        public Business(User user, string name, string description)
-        {
-            
-        }
     }
 }

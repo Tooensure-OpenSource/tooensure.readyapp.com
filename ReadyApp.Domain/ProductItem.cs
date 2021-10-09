@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace ReadyApp.Domain
 {
+    /// <summary>
+    /// Product items represents the acutal piece of a thing, => Exp:: Chicken, flower, fries..
+    /// Fries may even come with weigh (lb).
+    /// </summary>
     public class ProductItem
     {
         [Key]
         public int ProductItemId { get; set; }
         public string? Name { get; set; }
+        public string? Content { get; set; }
+        public DateTime ExperationDate { get; set; }
+
     }
 }

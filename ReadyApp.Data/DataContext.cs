@@ -10,13 +10,18 @@ namespace ReadyApp.Data
 {
     public class DataContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Business> Businesses { get; set; }
-
+        public DbSet<User>? Users { get; set; }
+        public DbSet<Business>? Businesses { get; set; }
+        public DbSet<ProductItem>? ProductItems { get; set; }
+        public DbSet<Product>? Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             

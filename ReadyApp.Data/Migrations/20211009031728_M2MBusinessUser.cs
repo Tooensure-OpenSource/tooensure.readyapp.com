@@ -2,7 +2,7 @@
 
 namespace ReadyApp.Data.Migrations
 {
-    public partial class Init1 : Migration
+    public partial class M2MBusinessUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,11 +45,11 @@ namespace ReadyApp.Data.Migrations
                 columns: table => new
                 {
                     BusinessesBusinessId = table.Column<int>(type: "int", nullable: false),
-                    OwnersUserId = table.Column<int>(type: "int", nullable: false)
+                    UsersUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusinessUser", x => new { x.BusinessesBusinessId, x.OwnersUserId });
+                    table.PrimaryKey("PK_BusinessUser", x => new { x.BusinessesBusinessId, x.UsersUserId });
                     table.ForeignKey(
                         name: "FK_BusinessUser_Businesses_BusinessesBusinessId",
                         column: x => x.BusinessesBusinessId,
@@ -57,17 +57,17 @@ namespace ReadyApp.Data.Migrations
                         principalColumn: "BusinessId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BusinessUser_Users_OwnersUserId",
-                        column: x => x.OwnersUserId,
+                        name: "FK_BusinessUser_Users_UsersUserId",
+                        column: x => x.UsersUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusinessUser_OwnersUserId",
+                name: "IX_BusinessUser_UsersUserId",
                 table: "BusinessUser",
-                column: "OwnersUserId");
+                column: "UsersUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -9,8 +9,8 @@ using ReadyApp.Data;
 namespace ReadyApp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211008033537_Init1")]
-    partial class Init1
+    [Migration("20211009031728_M2MBusinessUser")]
+    partial class M2MBusinessUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,12 +25,12 @@ namespace ReadyApp.Data.Migrations
                     b.Property<int>("BusinessesBusinessId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OwnersUserId")
+                    b.Property<int>("UsersUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("BusinessesBusinessId", "OwnersUserId");
+                    b.HasKey("BusinessesBusinessId", "UsersUserId");
 
-                    b.HasIndex("OwnersUserId");
+                    b.HasIndex("UsersUserId");
 
                     b.ToTable("BusinessUser");
                 });
@@ -109,7 +109,7 @@ namespace ReadyApp.Data.Migrations
 
                     b.HasOne("ReadyApp.Domain.User", null)
                         .WithMany()
-                        .HasForeignKey("OwnersUserId")
+                        .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

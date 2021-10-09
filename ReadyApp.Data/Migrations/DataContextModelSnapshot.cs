@@ -23,12 +23,12 @@ namespace ReadyApp.Data.Migrations
                     b.Property<int>("BusinessesBusinessId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OwnersUserId")
+                    b.Property<int>("UsersUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("BusinessesBusinessId", "OwnersUserId");
+                    b.HasKey("BusinessesBusinessId", "UsersUserId");
 
-                    b.HasIndex("OwnersUserId");
+                    b.HasIndex("UsersUserId");
 
                     b.ToTable("BusinessUser");
                 });
@@ -107,7 +107,7 @@ namespace ReadyApp.Data.Migrations
 
                     b.HasOne("ReadyApp.Domain.User", null)
                         .WithMany()
-                        .HasForeignKey("OwnersUserId")
+                        .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

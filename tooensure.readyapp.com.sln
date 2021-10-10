@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadyApp.Domain", "ReadyApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadyApp.Data", "ReadyApp.Data\ReadyApp.Data.csproj", "{1DF9C2AB-98F4-4077-B883-F9732191FC17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadyApp.Data.Console", "ReadyApp.Data.Console\ReadyApp.Data.Console.csproj", "{55E1C600-D23E-4B50-8CBA-72418256423C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadyApp.Api", "ReadyApp.Api\ReadyApp.Api.csproj", "{352C366B-0F69-4286-8CCA-CBE963607C00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadyApp.Api", "ReadyApp.Api\ReadyApp.Api.csproj", "{352C366B-0F69-4286-8CCA-CBE963607C00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{1DF9C2AB-98F4-4077-B883-F9732191FC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DF9C2AB-98F4-4077-B883-F9732191FC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DF9C2AB-98F4-4077-B883-F9732191FC17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55E1C600-D23E-4B50-8CBA-72418256423C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55E1C600-D23E-4B50-8CBA-72418256423C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55E1C600-D23E-4B50-8CBA-72418256423C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55E1C600-D23E-4B50-8CBA-72418256423C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{352C366B-0F69-4286-8CCA-CBE963607C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{352C366B-0F69-4286-8CCA-CBE963607C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{352C366B-0F69-4286-8CCA-CBE963607C00}.Release|Any CPU.ActiveCfg = Release|Any CPU

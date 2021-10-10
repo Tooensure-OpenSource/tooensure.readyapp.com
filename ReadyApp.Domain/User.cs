@@ -1,8 +1,22 @@
 ﻿using ReadyApp.Domain.inheritances;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace ReadyApp.Domain
 {
+    public enum occupation
+    {
+        None = 0,
+        Employee = 1,
+        Enentrepreneur = 2,
+        Owner = 3,
+    }
+    /// <summary>
+    /// A user inherts from person. A user is a person.
+    /// All user are identified first. 
+    /// A persn is identified by things like SSN, ID, etc,
+    /// A user is identifed by things like passwords, ids, etc.
+    /// </summary>
     public class User : Person
     {
         public int UserId { get; private set; }

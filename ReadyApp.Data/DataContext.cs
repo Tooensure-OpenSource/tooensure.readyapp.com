@@ -10,25 +10,18 @@ namespace ReadyApp.Data
 {
     public class DataContext : DbContext
     {
-        public DbSet<User>? Users { get; set; }
-        public DbSet<Business>? Businesses { get; set; }
-        public DbSet<ProductItem>? ProductItems { get; set; }
-        public DbSet<Product>? Products { get; set; }
-        public DbSet<OrderItem>? OrderItems { get; set; }
-        public DbSet<Order>? Orders { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DataContext(DbContextOptions<DataContext> dbContextOptions) : base(dbContextOptions)
         {
-            
+                
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="optionsBuilder"></param>
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-EMFSR5P\\TOOENSURE;Initial Catalog=ReadyApp;Integrated Security=True");
-        }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Business> Businesses { get; set; }
+        public DbSet<ProductItem> ProductItems { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Owner> Owners { get; set; }
 
     }
 }

@@ -30,12 +30,12 @@ namespace ReadyApp.Domain
             Employees = new List<Employee>();
         }
         /// <summary>
-        /// Create a instance of a business object.
+        /// Create a instance of a business object and add owners
         /// </summary>
-        /// <param name="user">Sets user and passes that user id into forign user id</param>
-        public Business(List<User> users)
+        /// <param name="owners">Sets user and passes that owners id into forign owners id</param>
+        public Business(List<Owner> owners)
         {
-            Users = users;
+            Owners = owners;
         }
         /// <summary>
         /// Create a instance of a business object.

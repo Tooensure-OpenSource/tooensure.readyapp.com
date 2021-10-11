@@ -36,10 +36,9 @@ namespace ReadyApp.Data.Migrations
 
             modelBuilder.Entity("ReadyApp.Domain.Business", b =>
                 {
-                    b.Property<int>("BusinessId")
+                    b.Property<Guid>("BusinessId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -51,8 +50,8 @@ namespace ReadyApp.Data.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -72,12 +71,17 @@ namespace ReadyApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BusinessId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("BusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("CustomerId");
 
                     b.HasIndex("BusinessId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Customers");
                 });
@@ -89,12 +93,17 @@ namespace ReadyApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BusinessId1")
-                        .HasColumnType("int");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("BusinessId1");
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
                 });
@@ -154,15 +163,20 @@ namespace ReadyApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Ownerhship")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("OwnerId");
 
                     b.HasIndex("BusinessId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Owners");
                 });
@@ -174,8 +188,8 @@ namespace ReadyApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BusinessId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("BusinessId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -218,10 +232,9 @@ namespace ReadyApp.Data.Migrations
 
             modelBuilder.Entity("ReadyApp.Domain.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -273,13 +286,33 @@ namespace ReadyApp.Data.Migrations
                     b.HasOne("ReadyApp.Domain.Business", null)
                         .WithMany("Customers")
                         .HasForeignKey("BusinessId");
+
+                    b.HasOne("ReadyApp.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ReadyApp.Domain.Employee", b =>
                 {
-                    b.HasOne("ReadyApp.Domain.Business", null)
+                    b.HasOne("ReadyApp.Domain.Business", "Business")
                         .WithMany("Employees")
-                        .HasForeignKey("BusinessId1");
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ReadyApp.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ReadyApp.Domain.Order", b =>
@@ -310,7 +343,15 @@ namespace ReadyApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ReadyApp.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Business");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ReadyApp.Domain.Product", b =>

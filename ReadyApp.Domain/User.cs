@@ -1,6 +1,6 @@
 ﻿using ReadyApp.Domain.inheritances;
 using System.ComponentModel.DataAnnotations;
-
+using System.Runtime.InteropServices;
 
 namespace ReadyApp.Domain
 {
@@ -13,7 +13,8 @@ namespace ReadyApp.Domain
     /// </summary>
     public class User : Person
     {
-        public int UserId { get; private set; }
+        [Key]
+        public Guid UserId { get; private set; }
         public string Username { get; set; }
         [Required]
         public string Email { get; set; }

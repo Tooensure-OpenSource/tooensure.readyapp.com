@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReadyApp.Domain.inheritances;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,15 +11,11 @@ namespace ReadyApp.Domain
     /// <summary>
     /// In a employee logic: new Business(new Employee(new User)) will map owner current user around the business
     /// </summary>
-    public class Employee
+    public class Employee : BusinessMap
     {
         public int EmployeeId { get; private set; }
-        [Required]
-        private int UserId { get; set; }
-        private User? User { get; set; }
-        [Required]
-        private int BusinessId { get; set; }
-        private Business? Business { get; set; }
+
+
 
         /// <summary>
         /// Initulize Business Constructor

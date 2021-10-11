@@ -16,7 +16,7 @@ namespace ReadyApp.Domain
     public class Business
     {
         [Key]
-        public int BusinessId { get; private set; }
+        public Guid BusinessId { get; private set; }
         [Required]
         public string? Name {  get; private set; }
         [Required]

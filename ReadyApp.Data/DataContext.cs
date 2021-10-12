@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReadyApp.Domain;
+using ReadyApp.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

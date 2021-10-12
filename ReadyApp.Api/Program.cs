@@ -7,7 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(setupAction =>
+{
+    setupAction.ReturnHttpNotAcceptable = true;
+    //setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+}).AddXmlDataContractSerializerFormatters();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddDbContext<DataContext>(opt =>
         opt.UseSqlServer(builder.Configuration.GetConnectionString("ReadyAppDb"))

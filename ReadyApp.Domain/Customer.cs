@@ -1,4 +1,5 @@
-﻿using ReadyApp.Domain.inheritances;
+﻿using ReadyApp.Domain.Entity;
+using ReadyApp.Domain.inheritances;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace ReadyApp.Domain
 
 
         public Customer() => Orders = new List<Order>();
-        public Customer(User user) => UserId = user.UserId;
+        //public Customer(User user) => UserId = user.UserId;
     }
 
 }

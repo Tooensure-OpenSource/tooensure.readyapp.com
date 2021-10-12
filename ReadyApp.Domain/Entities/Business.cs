@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReadyApp.Domain
+namespace ReadyApp.Domain.Entity
 {
     public enum occupation
     {

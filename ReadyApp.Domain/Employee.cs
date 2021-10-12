@@ -1,4 +1,5 @@
-﻿using ReadyApp.Domain.inheritances;
+﻿using ReadyApp.Domain.Entity;
+using ReadyApp.Domain.inheritances;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +22,7 @@ namespace ReadyApp.Domain
         /// Initulize Business Constructor
         /// </summary>
         public Employee() => Console.WriteLine("Initulize Business");
-        public Employee(User user) => UserId = user.UserId;
+        //public Employee(User user) => UserId = user.UserId;
 
         //override User GetUser()
         //{

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
-namespace ReadyApp.Domain
+namespace ReadyApp.Domain.Entity
 {
 
     /// <summary>

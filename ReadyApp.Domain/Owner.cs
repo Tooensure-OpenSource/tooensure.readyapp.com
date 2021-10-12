@@ -24,6 +24,6 @@ namespace ReadyApp.Domain
         /// Mapping the user this way may be intelligence
         /// </summary>
         /// <param name="user"></param>
-        public Owner(User user) => UserId = user.UserId;
+       //public Owner(User user) => UserId = user.UserId;
     }
 }

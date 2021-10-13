@@ -8,7 +8,7 @@ namespace ReadyApp.Api.Controllers
 {
 
     [ApiController]
-    [Route("api/users/{userId}/businesses/{businessId}/[controller]")]
+    [Route("api/users/{userId}/businesses/{businessId}/owners")]
     public class OwnerController : ControllerBase
     {
         private readonly IOwnerRepository _ownerRepository;
@@ -24,10 +24,10 @@ namespace ReadyApp.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<OwnerDto> GetOwners()
+        public ActionResult<IEnumerable<OwnerDto>> GetOwners()
         {
             var ownersFromRepo = _ownerRepository.GetOwners();
-            var result = _mapper.Map<OwnerDto>(ownersFromRepo);
+            var result = _mapper.Map<IEnumerable<OwnerDto>>(ownersFromRepo);
             return Ok(result);
         }
 

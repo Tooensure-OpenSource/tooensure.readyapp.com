@@ -8,7 +8,7 @@ namespace ReadyApp.Domain
 {
     public class Product
     {
-        public int ProductId { get; private set; }
+        public Guid ProductId { get; private set; }
         public string Header { get; set; }
         public string Description { get; set; }
         public decimal PriceTag { get; set; }

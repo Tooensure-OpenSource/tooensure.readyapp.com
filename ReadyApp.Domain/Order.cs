@@ -8,11 +8,11 @@ namespace ReadyApp.Domain
 {
     public class Order
     {
-        public int OrderId { get; private set; }
+        public Guid OrderId { get; private set; }
         public DateTime dateTime { get; private set; }
         public bool isReady { get; set; }
         private List<OrderItem>? OrderItems { get; set; }
-        private int CustomerId { get; set; }
+        private Guid CustomerId { get; set; }
         private Customer Customer { get; set; }
 
 

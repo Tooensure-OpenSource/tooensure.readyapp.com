@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReadyApp.Data.Migrations
 {
-    public partial class ReadyAppOfficial : Migration
+    public partial class AddingGuids : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,8 +11,7 @@ namespace ReadyApp.Data.Migrations
                 name: "ProductItems",
                 columns: table => new
                 {
-                    ProductItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExperationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -64,8 +63,7 @@ namespace ReadyApp.Data.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -90,8 +88,7 @@ namespace ReadyApp.Data.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -116,8 +113,7 @@ namespace ReadyApp.Data.Migrations
                 name: "Owners",
                 columns: table => new
                 {
-                    OwnerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Ownerhship = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -143,8 +139,7 @@ namespace ReadyApp.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Header = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PriceTag = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -165,10 +160,9 @@ namespace ReadyApp.Data.Migrations
                 name: "OrderItems",
                 columns: table => new
                 {
-                    OrderItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,8 +179,8 @@ namespace ReadyApp.Data.Migrations
                 name: "ProductProductItem",
                 columns: table => new
                 {
-                    ProductItemsProductItemId = table.Column<int>(type: "int", nullable: false),
-                    ProductReferancesProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductItemsProductItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductReferancesProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,12 +203,11 @@ namespace ReadyApp.Data.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     dateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     isReady = table.Column<bool>(type: "bit", nullable: false),
-                    CustomerId1 = table.Column<int>(type: "int", nullable: true),
-                    OrderItemId = table.Column<int>(type: "int", nullable: true)
+                    CustomerId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    OrderItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {

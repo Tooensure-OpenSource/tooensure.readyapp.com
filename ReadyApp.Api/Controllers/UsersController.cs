@@ -8,7 +8,7 @@ using ReadyApp.Domain;
 
 namespace ReadyApp.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {

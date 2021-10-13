@@ -8,7 +8,7 @@ namespace ReadyApp.Domain
 {
     public class OrderItem
     {
-        public int OrderItemId { get; private  set; }
+        public Guid OrderItemId { get; private  set; }
         public int Quantity { get; set; }
         public List<Order>? OrderReferances { get; set; }
         public Product Product { get; set; }

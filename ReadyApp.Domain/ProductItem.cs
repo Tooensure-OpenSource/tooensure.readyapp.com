@@ -14,7 +14,7 @@ namespace ReadyApp.Domain
     public class ProductItem
     {
         [Key]
-        public int ProductItemId { get; private set; }
+        public Guid ProductItemId { get; private set; }
         public string? Name { get; set; }
         public string? Content { get; set; }
         public DateTime ExperationDate { get; set; }

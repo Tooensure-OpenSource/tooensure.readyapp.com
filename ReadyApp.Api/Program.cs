@@ -14,7 +14,11 @@ builder.Services.AddControllers(setupAction =>
 }).AddXmlDataContractSerializerFormatters();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBusinessRepository, BusinessesRepository>();
+builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
+
 builder.Services.AddDbContext<DataContext>(opt =>
         opt.UseSqlServer(builder.Configuration.GetConnectionString("ReadyAppDb"))
         .EnableSensitiveDataLogging()

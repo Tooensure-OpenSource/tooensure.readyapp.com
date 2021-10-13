@@ -9,7 +9,7 @@ namespace ReadyApp.Api.Controllers
 {
    
     [ApiController]
-    [Route("api/users/{userId}/[controller]")]
+    [Route("api/users/{userId:guid}/businesses")]
     public class BusinessesController : ControllerBase
     {
         private readonly IBusinessRepository _businessRepository;

@@ -1,4 +1,5 @@
-﻿using ReadyApp.Domain.inheritances;
+﻿using ReadyApp.Domain.Entity;
+using ReadyApp.Domain.inheritances;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,12 @@ namespace ReadyApp.Domain
 {
     public class Owner : BusinessMap
     {
-        public int OwnerId { get; private set; }
+        public Guid OwnerId { get; private set; }
         public decimal Ownerhship { get; set; }
 
         // Foirgn Keys
 
-        public Owner()
-        {
 
-        }
 
         /// <summary>
         /// Something just interests by writing code like new Business(new Owner(new User())).

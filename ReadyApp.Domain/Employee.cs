@@ -14,7 +14,7 @@ namespace ReadyApp.Domain
     /// </summary>
     public class Employee : BusinessMap
     {
-        public int EmployeeId { get; private set; }
+        public Guid EmployeeId { get; private set; }
 
 
 

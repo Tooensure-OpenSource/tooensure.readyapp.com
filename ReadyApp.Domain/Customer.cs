@@ -14,7 +14,7 @@ namespace ReadyApp.Domain
     {
         // new Business(new Customer(new (new User())))
 
-        public int CustomerId { get; private set; }
+        public Guid CustomerId { get; private set; }
 
         private List<Business> Businesses { get; set; }
         public List<Order>? Orders { get; set; }

@@ -40,6 +40,12 @@ namespace ReadyApp.Domain.Entity
         /// </summary>
         /// <param name="owners">Sets user and passes that owners id into forign owners id</param>
         public Business(Owner owner) => Owners?.Add(owner);
+        public Business(Owner owner, string name, string usernme)
+        {
+            Owners?.Add(owner);
+            Name = name;
+            Username = usernme;
+        }
         public Business(Employee employee) => Employees?.Add(employee);
         public Business(Customer customers) => Customers?.Add(customers);
 

@@ -15,6 +15,11 @@ namespace ReadyApp.Api.Repositories
             _datacontext = datacontext ?? throw new ArgumentNullException(nameof(datacontext));
         }
 
+        public void CreateUser(User user)
+        {
+            _datacontext.Users.Add(user);
+        }
+
         public User GetUser(Guid userId)
         {
             return _datacontext.Users.Where(u => u.UserId == userId).FirstOrDefault();
@@ -33,6 +38,13 @@ namespace ReadyApp.Api.Repositories
             }
 
             return _datacontext.Users.Any(u => u.UserId == userId);
+        }
+
+        public void Save() => _datacontext.SaveChanges();
+
+        public bool UserExists(User user)
+        {
+            return _datacontext.Users.Any(u => u.Username == user.Username || u.Email == user.Email);
         }
     }
 }

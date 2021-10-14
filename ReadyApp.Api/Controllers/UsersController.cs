@@ -5,6 +5,9 @@ using ReadyApp.Api.Models;
 using ReadyApp.Api.Repositories;
 using ReadyApp.Data.Services;
 using ReadyApp.Domain;
+using ReadyApp.Domain.Entity;
+using System;
+using System.Collections.Generic;
 
 namespace ReadyApp.Api.Controllers
 {
@@ -38,7 +41,7 @@ namespace ReadyApp.Api.Controllers
             return Ok(_mapper.Map<IEnumerable<UserDto>>(usersFromRepo));
         }
 
-        [HttpGet("{userId:guid}")]
+        [HttpGet("{userId:guid}", Name = "GetUser")]
         public ActionResult<UserDto> GetUsers(Guid userId)
         {
             var usersFromRepo = _userRepository.GetUser(userId);
@@ -49,6 +52,24 @@ namespace ReadyApp.Api.Controllers
             }
 
             return Ok(_mapper.Map<UserDto>(usersFromRepo));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserDto>> RegisterUser(UserRegisterDto userRegister)
+        {
+            var registerEntity = _mapper.Map<User>(userRegister);
+
+            if (registerEntity == null) return NoContent();
+            if (_userRepository.UserExists(registerEntity)) return BadRequest();
+
+            _userRepository.CreateUser(registerEntity);
+            _userRepository.Save();
+
+            var userToReturn = _mapper.Map<UserDto>(registerEntity);
+            return CreatedAtRoute(
+                "GetUser", 
+                new { userId = userToReturn.UserId },
+                userToReturn);
         }
     }
 }

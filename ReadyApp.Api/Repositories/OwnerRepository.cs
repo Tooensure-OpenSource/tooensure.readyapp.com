@@ -12,7 +12,7 @@ namespace ReadyApp.Api.Repositories
         {
             _dataContext = dataContext;
         }
-
+        ///
         public Owner GetOwner(Guid ownerId)
         {
             return _dataContext.Owners.Find(ownerId);

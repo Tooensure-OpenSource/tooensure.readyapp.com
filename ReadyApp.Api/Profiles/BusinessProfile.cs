@@ -15,6 +15,16 @@ namespace ReadyApp.Api.Profiles
                 .ForMember(
                     dest => dest.BusinessName,
                     opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<BusinessRegisterDto, Business>()
+                .ForMember(
+                    dest => dest.Username,
+                    opt => opt.MapFrom(src => src.Username))
+                .ForMember(
+                    dest => dest.Name,
+                    opt => opt.MapFrom(src => src.Name.Trim()));
+
+
         }
     }
 }

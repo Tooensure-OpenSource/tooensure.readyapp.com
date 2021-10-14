@@ -1,4 +1,5 @@
-﻿using ReadyApp.Domain.Entity;
+﻿using ReadyApp.data.ResourceParameters;
+using ReadyApp.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,14 @@ namespace ReadyApp.Data.Services
         /// </summary>
         /// <returns></returns>
         IEnumerable<Business> GetBusinesses();
+        /// <summary>
+        /// Search implemenatation for searching business by its username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        IEnumerable<Business> GetBusinesses(BusinessResorcesParameters businessResorces);
+        bool BusinessExist(Business business);
+        void RegisterBusiness(Business business);
+        void Save();
     }
 }

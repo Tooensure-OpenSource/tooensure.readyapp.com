@@ -22,18 +22,26 @@ namespace ReadyApp.Api.Controllers
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
         }
-
-        [HttpGet]
-        public ActionResult<IEnumerable<OwnerDto>> GetOwners()
-        {
-            var ownersFromRepo = _ownerRepository.GetOwners();
-            var result = _mapper.Map<IEnumerable<OwnerDto>>(ownersFromRepo);
-            return Ok(result);
-        }
+        /// <summary>
+        /// Seems more right to interate through db sets like this and 
+        /// more logic when using ids
+        /// </summary>
+        /// <returns></returns>
+        //[HttpGet("api/users/businesses/owners")]
+        //public ActionResult<IEnumerable<OwnerDto>> GetOwners()
+        //{
+        //    var ownersFromRepo = _ownerRepository.GetOwners();
+        //    var result = _mapper.Map<IEnumerable<OwnerDto>>(ownersFromRepo);
+        //    return Ok(result);
+        //}
 
         [HttpGet("{ownerId:guid}")]
         public ActionResult<OwnerDto> GetOwner(Guid ownerId)
         {
+            if (!_ownerRepository.OwnerExists(ownerId))
+            {
+                return NotFound();
+            }
             var ownersFromRepo = _ownerRepository.GetOwner(ownerId);
             var result = _mapper.Map<OwnerDto>(ownersFromRepo);
             return Ok(result);

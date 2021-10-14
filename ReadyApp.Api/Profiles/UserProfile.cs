@@ -22,6 +22,17 @@ namespace ReadyApp.Api.Profiles
                         dest => dest.Username,
                         opt => opt.MapFrom(src => src.Username));
 
+            CreateMap<UserRegisterDto, User>()
+                .ForMember(
+                    dest => dest.Username,
+                    opt => opt.MapFrom(src => src.Username))
+                .ForMember(
+                    dest => dest.Email,
+                    opt => opt.MapFrom(src => src.EmailAddress))
+                .ForMember(
+                    dest => dest.Password,
+                    opt => opt.MapFrom(src => src.Password)); ;
+
         }
     }
 }

@@ -40,7 +40,7 @@ namespace ReadyApp.Data.Services
         /// <returns>list of owners</returns>
         IEnumerable<Owner> GetOwners();
         /// <summary>
-        /// See if there is 
+        /// See if there is in a user of object
         /// </summary>
         /// <param name="ownerId"></param>
         /// <returns></returns>

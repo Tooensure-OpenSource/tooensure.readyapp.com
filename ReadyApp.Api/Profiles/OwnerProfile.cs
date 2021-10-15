@@ -18,6 +18,7 @@ namespace ReadyApp.Api.Profiles
                 .ForMember(
                     dest => dest.BusinessId,
                     opt => opt.MapFrom(src => src.BusinessId));
+
         }
     }
 }

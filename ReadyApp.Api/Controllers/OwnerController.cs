@@ -35,6 +35,21 @@ namespace ReadyApp.Api.Controllers
         //    return Ok(result);
         //}
 
+        [HttpGet]
+        public ActionResult<IEnumerable<OwnerDto>> GetOwners(Guid businessId)
+        {
+            // Checking if there's in fact a business (businessId:guid) within owner tables
+            if (!_ownerRepository.OwnerExists(businessId)) return NotFound();
+
+            // Retrieving owners from repository
+            var ownersFromRepo = _ownerRepository.GetOwnersForBusiness(businessId);
+            // Mapping Type owner to type owner dto
+            var ownersToDto = _mapper.Map<IEnumerable<OwnerDto>>(ownersFromRepo);
+            // return 200 code success
+            return Ok(ownersToDto);
+
+        }
+
         [HttpGet("{ownerId:guid}")]
         public ActionResult<OwnerDto> GetOwner(Guid ownerId)
         {
@@ -47,19 +62,15 @@ namespace ReadyApp.Api.Controllers
             return Ok(result);
         }
 
-        public ActionResult<IEnumerable<OwnerDto>> OwnersOfBusiness(Guid businessId)
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult<OwnerDto> RegisterOwner()
         {
-            var ownersOfBusinessFromRepo = _ownerRepository.GetOwnersForBusiness(businessId);
-            var result = _mapper.Map<OwnerDto>(ownersOfBusinessFromRepo);
-            return Ok(result);
 
         }
-
-        public ActionResult<OwnerDto> GetOwnerOfUser(Guid userId)
-        {
-            var ownersFromRepo = _ownerRepository.GetOwnerOfUser(userId);
-            var result = _mapper.Map<OwnerDto>(ownersFromRepo);
-            return Ok(result);
-        }
+        
     }
 }

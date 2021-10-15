@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ReadyApp.Data\ReadyApp.Data.csproj" />
     <ProjectReference Include="..\ReadyApp.Domain\ReadyApp.Domain.csproj" />
+    <ProjectReference Include="..\ReadyApp.Shared\ReadyApp.Shared.csproj" />
   </ItemGroup>
 
 </Project>

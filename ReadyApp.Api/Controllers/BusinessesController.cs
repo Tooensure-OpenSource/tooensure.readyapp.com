@@ -63,13 +63,14 @@ namespace ReadyApp.Api.Controllers
             if (businessEntity == null) return NoContent();
 
             if (_businessRepository.BusinessExist(businessEntity)) return BadRequest();
+      
             _businessRepository.RegisterBusiness(businessEntity);
 
             _businessRepository.Save();
 
             var businessToReturn = _mapper.Map<BusinessDto>(businessEntity);
             return CreatedAtRoute(
-                "GetBusiness()",
+                "GetBusiness",
                 new { businessId = businessToReturn.BusinessId },
                 businessToReturn);
 

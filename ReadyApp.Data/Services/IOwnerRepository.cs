@@ -44,6 +44,7 @@ namespace ReadyApp.Data.Services
         /// </summary>
         /// <param name="ownerId"></param>
         /// <returns></returns>
-        bool OwnerExists(Guid ownerId);
+        bool OwnerExists(Guid businessId);
+        void AddOwner(Guid userId,Guid businessId);
     }
 }

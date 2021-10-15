@@ -6,6 +6,7 @@ using ReadyApp.Api.Repositories;
 using ReadyApp.Data.Services;
 using ReadyApp.Domain;
 using ReadyApp.Domain.Entity;
+using ReadyApp.Shared.UserDto;
 using System;
 using System.Collections.Generic;
 
@@ -55,7 +56,7 @@ namespace ReadyApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDto>> RegisterUser(UserRegisterDto userRegister)
+        public async Task<ActionResult<UserDto>> RegisterUser(UserRegister userRegister)
         {
             var registerEntity = _mapper.Map<User>(userRegister);
 

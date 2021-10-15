@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ReadyApp.Api.Models;
 using ReadyApp.Domain.Entity;
+using ReadyApp.Shared.UserDto;
 
 namespace ReadyApp.Api.Profiles
 {
@@ -22,7 +23,7 @@ namespace ReadyApp.Api.Profiles
                         dest => dest.Username,
                         opt => opt.MapFrom(src => src.Username));
 
-            CreateMap<UserRegisterDto, User>()
+            CreateMap<UserRegister, User>()
                 .ForMember(
                     dest => dest.Username,
                     opt => opt.MapFrom(src => src.Username))

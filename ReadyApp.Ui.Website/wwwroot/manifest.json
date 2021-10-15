@@ -1,6 +1,6 @@
 {
-  "name": "ReadyApp.Ui.Website",
-  "short_name": "ReadyApp.Ui.Website",
+  "name": "ReadyApp.UI.Website",
+  "short_name": "ReadyApp.UI.Website",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",

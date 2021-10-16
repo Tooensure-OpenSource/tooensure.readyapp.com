@@ -44,7 +44,12 @@ namespace ReadyApp.Api.Repositories
 
         public bool UserExists(User user)
         {
-            return _datacontext.Users.Any(u => u.Username == user.Username || u.Email == user.Email);
+            return true;
+        }
+
+        public bool UserExistByUsername(User user)
+        {
+            return _datacontext.Users.Any(u => u.Username == user.Username);
         }
     }
 }

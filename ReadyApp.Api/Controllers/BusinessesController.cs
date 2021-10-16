@@ -26,25 +26,31 @@ namespace ReadyApp.Api.Controllers
                 throw new ArgumentNullException(nameof(mapper));
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<BusinessDto>> GetBusinesses()
-        {
-            var businessesFromRepo = _businessRepository.GetBusinesses();
-            var result = _mapper.Map<IEnumerable<BusinessDto>>(businessesFromRepo);
-
-            return Ok(result);
-        }
-
+        /// <summary>
+        /// Every user has access to view every business
+        /// </summary>
+        /// <returns></returns>
         //[HttpGet]
-        //[HttpHead]
-        //public ActionResult<IEnumerable<BusinessDto>> GetBusinesses(
-        //    [FromQuery] BusinessResorcesParameters businessResorcesParameters)
+        //public ActionResult<IEnumerable<BusinessDto>> GetBusinesses()
         //{
-        //    var businessesFromRepo = _businessRepository.GetBusinesses(businessResorcesParameters);
+        //    var businessesFromRepo = _businessRepository.GetBusinesses();
         //    var result = _mapper.Map<IEnumerable<BusinessDto>>(businessesFromRepo);
 
         //    return Ok(result);
         //}
+
+        
+        // All users can only view business data through username search
+        [HttpGet]
+        [HttpHead]
+        public ActionResult<IEnumerable<BusinessDto>> GetBusinesses(
+            [FromQuery] BusinessResorcesParameters businessResorcesParameters)
+        {
+            var businessesFromRepo = _businessRepository.GetBusinesses(businessResorcesParameters);
+            var result = _mapper.Map<IEnumerable<BusinessDto>>(businessesFromRepo);
+
+            return Ok(result);
+        }
 
         [HttpGet("{businessId}", Name = "GetBusiness")]
         public ActionResult<BusinessDto> GetBusiness(Guid businessId)
@@ -55,11 +61,17 @@ namespace ReadyApp.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// In order to register a business you'll need to set username and name of business as required
+        /// </summary>
+        /// <param name="business"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<BusinessDto>> RegisterBusiness(BusinessRegisterDto business)
+        public ActionResult<BusinessDto> RegisterBusiness(BusinessRegisterDto business)
         {
+            // Mapping new business register data into business object
             var businessEntity = _mapper.Map<Business>(business);
-
+            // checking if business is in fact a object with content (because of BusinessRegister reqiured attributes, There should always be content in User object)
             if (businessEntity == null) return NoContent();
 
             if (_businessRepository.BusinessExist(businessEntity)) return BadRequest();

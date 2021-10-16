@@ -34,26 +34,15 @@ namespace ReadyApp.Api.Repositories
 
         public IEnumerable<Business> GetBusinesses(BusinessResorcesParameters businessResorces)
         {
-            if (string.IsNullOrWhiteSpace(businessResorces.Username) && string.IsNullOrWhiteSpace(businessResorces.SearchQuery))
+            if (string.IsNullOrWhiteSpace(businessResorces.Username))
             {
-                return GetBusinesses();
+                return null;
             }
-            var collection = _dataContext.Businesses as IQueryable<Business>; 
 
-            if (!string.IsNullOrWhiteSpace(businessResorces.Username))
-            {
+           
                 businessResorces.Username = businessResorces.Username.Trim();
                 return _dataContext.Businesses.Where(s => s.Username == businessResorces.Username);
-            }
-
-            if (!string.IsNullOrWhiteSpace(businessResorces.SearchQuery))
-            {
-                businessResorces.SearchQuery = businessResorces.SearchQuery.Trim();
-                return _dataContext.Businesses.Where(
-                    s => s.Username.Contains(businessResorces.SearchQuery));
-            }
-
-            return collection.ToList();
+            
         }
 
         public void RegisterBusiness(Business business)

@@ -31,7 +31,8 @@ namespace ReadyApp.Data.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         bool UserExist(Guid userId);
-        bool UserExists(User user);   
+        bool UserExists(User user);
+        bool UserExistByUsername(User user);
         void CreateUser(User user);
         void Save();
         //void UpdateUser(Guid userId, User user);

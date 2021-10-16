@@ -69,7 +69,7 @@ namespace ReadyApp.Api.Controllers
         [HttpPost]
         public ActionResult<UserDto> RegisterUser(UserRegister userRegister)
         {         
-            // Mapping the new user register into object class of user
+            // Mapping the new user register data into user object
             var user = _mapper.Map<User>(userRegister);
 
             // checking if user is in fact a object with content (because of UserRegister reqiured attributes, There should always be content in User object)

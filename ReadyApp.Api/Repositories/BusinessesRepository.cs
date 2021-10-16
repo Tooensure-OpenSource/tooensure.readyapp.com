@@ -13,7 +13,10 @@ namespace ReadyApp.Api.Repositories
         {
             _dataContext = dataContext;
         }
-
+        public bool BusinessExistByUsername(string username)
+        {
+            return _dataContext.Businesses.Any(b => b.Username == username);
+        }
         public bool BusinessExist(Business business)
         {
             return _dataContext.Businesses.Any(b => b.Username == business.Username);

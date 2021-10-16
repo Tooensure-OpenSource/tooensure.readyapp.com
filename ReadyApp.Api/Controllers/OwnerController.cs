@@ -66,11 +66,11 @@ namespace ReadyApp.Api.Controllers
         /// /
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult<OwnerDto> RegisterOwner()
-        {
+        //[HttpPost]
+        //public ActionResult<OwnerDto> RegisterOwner()
+        //{
 
-        }
         
+        //}
     }
 }

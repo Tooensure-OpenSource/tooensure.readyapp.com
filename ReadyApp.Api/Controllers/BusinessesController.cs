@@ -67,20 +67,20 @@ namespace ReadyApp.Api.Controllers
         /// <param name="business"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<BusinessDto> RegisterBusiness(BusinessRegisterDto business)
+        public ActionResult<BusinessDto> RegisterBusiness(BusinessRegisterDto businessRegister)
         {
             // Mapping new business register data into business object
-            var businessEntity = _mapper.Map<Business>(business);
+            var business = _mapper.Map<Business>(businessRegister);
             // checking if business is in fact a object with content (because of BusinessRegister reqiured attributes, There should always be content in User object)
-            if (businessEntity == null) return NoContent();
+            if (business == null) return NoContent();
 
-            if (_businessRepository.BusinessExist(businessEntity)) return BadRequest();
+            if (_businessRepository.BusinessExistByUsername(business.Username)) return BadRequest();
       
-            _businessRepository.RegisterBusiness(businessEntity);
+            _businessRepository.RegisterBusiness(business);
 
             _businessRepository.Save();
 
-            var businessToReturn = _mapper.Map<BusinessDto>(businessEntity);
+            var businessToReturn = _mapper.Map<BusinessDto>(business);
             return CreatedAtRoute(
                 "GetBusiness",
                 new { businessId = businessToReturn.BusinessId },

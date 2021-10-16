@@ -32,6 +32,7 @@ namespace ReadyApp.Data.Services
         /// <param name="businessId"></param>
         /// <returns>Owners of specific business id prarm</returns>
         IEnumerable<Owner> GetOwnersForBusiness(Guid businessId);
+        Owner GetOwnerForBusiness(Guid userId, Guid businessId);
 
         // Global scope of business
         /// <summary>

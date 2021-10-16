@@ -34,6 +34,12 @@ namespace ReadyApp.Data.Services
         /// <returns></returns>
         IEnumerable<Business> GetBusinesses(BusinessResorcesParameters businessResorces);
         bool BusinessExist(Business business);
+        /// <summary>
+        /// Check if a businesses in data store container username
+        /// </summary>
+        /// <param name="business"></param>
+        /// <returns>true if there is in fact a business with username</returns>
+        bool BusinessExistByUsername(string username);
         void RegisterBusiness(Business business);
         void Save();
     }

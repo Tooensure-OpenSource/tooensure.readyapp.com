@@ -8,16 +8,10 @@ namespace ReadyApp.Api.Profiles
     {
         public OwnerProfile()
         {
-            CreateMap<Owner, OwnerDto>()
-                .ForMember(
-                    dest => dest.OwnerId,
-                    opt => opt.MapFrom(src => src.OwnerId))
-                .ForMember(
-                    dest => dest.UserId,
-                    opt => opt.MapFrom(src => src.UserId))
-                .ForMember(
-                    dest => dest.BusinessId,
-                    opt => opt.MapFrom(src => src.BusinessId));
+            CreateMap<OwnerRegisterDto, Owner>();
+
+            CreateMap<Owner, OwnerDto>();
+            
 
         }
     }

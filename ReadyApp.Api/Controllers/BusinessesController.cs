@@ -54,7 +54,7 @@ namespace ReadyApp.Api.Controllers
         /// <param name="business"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<BusinessDto> RegisterBusiness(BusinessRegisterDto businessRegister)
+        public ActionResult<BusinessDto> RegisterBusiness(Guid userId, BusinessRegisterDto businessRegister)
         {
             // *** START LOGIC ***
             // Mapping new business register data into business object
@@ -73,7 +73,7 @@ namespace ReadyApp.Api.Controllers
             var businessToReturn = _mapper.Map<BusinessDto>(business);
             return CreatedAtRoute(
                 "GetBusiness",
-                new { businessId = businessToReturn.BusinessId },
+                new { userId = userId, businessId = businessToReturn.BusinessId },
                 businessToReturn);
 
         }

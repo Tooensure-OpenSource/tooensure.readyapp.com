@@ -12,6 +12,10 @@ namespace ReadyApp.Domain
     {
         public Guid OwnerId { get; private set; }
         public decimal Ownerhship { get; set; }
+        public Owner()
+        {
+                
+        }
         public Owner(Guid userId, Guid businessId)
         {
                 UserId = userId;

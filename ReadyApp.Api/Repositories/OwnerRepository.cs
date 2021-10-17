@@ -13,16 +13,23 @@ namespace ReadyApp.Api.Repositories
             _dataContext = dataContext;
         }
 
-        public void AddOwner(Guid userId, Guid businessId)
+        public void CreateOwner(Guid businessId, Owner owner)
         {
-            var owner = new Owner(userId, businessId);
+            owner.BusinessId = businessId;
             _dataContext.Owners.Add(owner);
         }
+
+
 
         ///
         public Owner GetOwner(Guid ownerId)
         {
             return _dataContext.Owners.Find(ownerId);
+        }
+
+        public Owner GetOwnerForBusiness(Guid userId, Guid businessId)
+        {
+            return new Owner(userId, businessId);
         }
 
         public Owner GetOwnerOfUser(Guid userId)
@@ -40,15 +47,19 @@ namespace ReadyApp.Api.Repositories
             return _dataContext.Owners.Where(o => o.BusinessId == businessId);
         }
 
-        public bool OwnerExists(Guid businessId)
+        public bool OwnerExistForBusiness(Guid businessId, Guid userId)
         {
-            return _dataContext.Owners.Any(o => o.BusinessId == businessId);
+            return _dataContext.Owners.Any(o => o.BusinessId == businessId && o.UserId == userId);
         }
 
-
-        public bool UserExists(Guid userId)
+        public bool OwnerExists(Guid owerId)
         {
-            return _dataContext.Users.Any(u => u.UserId == userId);
+            return _dataContext.Owners.Any(o => o.OwnerId == owerId);
+        }
+
+        public void Save()
+        {
+            _dataContext.SaveChanges();
         }
     }
 }

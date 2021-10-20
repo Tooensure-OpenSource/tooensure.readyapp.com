@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReadyApp.Api.Models;
+using ReadyApp.Api.Models.Creation;
 using ReadyApp.data.ResourceParameters;
 using ReadyApp.Data.Services;
 using ReadyApp.Domain.Entity;
 
-namespace ReadyApp.Api.Controllers
+namespace ReadyApp.Api.Controllers.BusinessControls
 {
    
     [ApiController]
@@ -54,11 +55,13 @@ namespace ReadyApp.Api.Controllers
         /// <param name="business"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<BusinessDto> RegisterBusiness(Guid userId, BusinessRegisterDto businessRegister)
+        public ActionResult<BusinessDto> RegisterBusiness(Guid userId, BusinessCreationDto businessRegister)
         {
+            businessRegister.DefaultOwner.UserId = userId;
             // *** START LOGIC ***
             // Mapping new business register data into business object
             var business = _mapper.Map<Business>(businessRegister);
+            
             // checking if business is in fact a object with content (because of BusinessRegister reqiured attributes, There should always be content in User object)
             if (business == null) return NoContent();
             // cheacking if there already a business in data store with username. There must not be a business with same username

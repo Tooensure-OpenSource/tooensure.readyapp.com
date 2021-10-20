@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ReadyApp.Api.Models;
+using ReadyApp.Api.Models.Creation;
 using ReadyApp.Domain.Entity;
 using ReadyApp.Shared.UserDto;
 
@@ -9,6 +10,24 @@ namespace ReadyApp.Api.Profiles
     {
         public UserProfile()
         {
+            CreateMap<UserCreationDto, User>()
+                 .ForMember(
+                    dest => dest.FirstName,
+                    opt => opt.MapFrom(src => src.FirstName))
+                  .ForMember(
+                    dest => dest.LastName,
+                    opt => opt.MapFrom(src => src.LastName))
+                .ForMember(
+                    dest => dest.Username,
+                    opt => opt.MapFrom(src => src.Username))
+                .ForMember(
+                    dest => dest.Password,
+                    opt => opt.MapFrom(src => src.Password))
+                .ForMember(
+                    dest => dest.Email,
+                    opt => opt.MapFrom(src => src.EmailAddress));
+
+
             CreateMap<User, UserDto>()
                 .ForMember(
                     dest => dest.UserId,

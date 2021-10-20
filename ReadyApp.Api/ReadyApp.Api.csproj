@@ -22,4 +22,12 @@
     <ProjectReference Include="..\ReadyApp.Shared\ReadyApp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\BusinessControls\EmployeeControls\" />
+    <Folder Include="Controllers\BusinessControls\OwnerControls\" />
+    <Folder Include="Controllers\ProductControls\" />
+    <Folder Include="Controllers\BusinessControls\ProductItemControls\" />
+    <Folder Include="Controllers\OrderControls\OrderItemControls\" />
+  </ItemGroup>
+
 </Project>

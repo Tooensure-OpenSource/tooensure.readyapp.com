@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReadyApp.Api.Models;
+using ReadyApp.Api.Models.Creation;
 using ReadyApp.Api.Repositories;
 using ReadyApp.Data.Services;
 using ReadyApp.Domain;
@@ -48,8 +49,9 @@ namespace ReadyApp.Api.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet("{userId:guid}", Name = "GetUser")]
-        public ActionResult<UserDto> GetUsers(Guid userId)
+        public ActionResult<UserDto> GetUser(Guid userId)
         {
+            if (!_userRepository.UserExist(userId)) return BadRequest();
             // calls the data store repository and retieves the user with identifer
             var expectedUser = _userRepository.GetUser(userId);
             // in cases where there is not a user with identifer then check if user is actually null
@@ -67,7 +69,7 @@ namespace ReadyApp.Api.Controllers
         /// <param name="userRegister"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<UserDto> RegisterUser(UserRegister userRegister)
+        public ActionResult<UserDto> RegisterUser(UserCreationDto userRegister)
         {         
             // Mapping the new user register data into user object
             var user = _mapper.Map<User>(userRegister);

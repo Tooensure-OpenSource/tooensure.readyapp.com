@@ -27,10 +27,6 @@ namespace ReadyApp.Api.Repositories
             return _dataContext.Owners.Find(ownerId);
         }
 
-        public Owner GetOwnerForBusiness(Guid userId, Guid businessId)
-        {
-            return new Owner(userId, businessId);
-        }
 
         public Owner GetOwnerOfUser(Guid userId)
         {
@@ -47,9 +43,9 @@ namespace ReadyApp.Api.Repositories
             return _dataContext.Owners.Where(o => o.BusinessId == businessId);
         }
 
-        public bool OwnerExistForBusiness(Guid businessId, Guid userId)
+        public bool OwnerExistForBusiness(Owner owner)
         {
-            return _dataContext.Owners.Any(o => o.BusinessId == businessId && o.UserId == userId);
+            return _dataContext.Owners.Any(o => o.BusinessId == owner.BusinessId && o.UserId == owner.UserId);
         }
 
         public bool OwnerExists(Guid owerId)

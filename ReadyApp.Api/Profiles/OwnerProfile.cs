@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ReadyApp.Api.Models;
+using ReadyApp.Api.Models.Referance;
 using ReadyApp.Domain;
 
 namespace ReadyApp.Api.Profiles
@@ -8,9 +9,12 @@ namespace ReadyApp.Api.Profiles
     {
         public OwnerProfile()
         {
-            CreateMap<OwnerRegisterDto, Owner>();
+            CreateMap<OwnerReferanceDto, Owner>();
 
-            CreateMap<Owner, OwnerDto>();
+            CreateMap<Owner, OwnerDto>()
+                .ForMember(
+                    dest => dest.Id,
+                    opt => opt.MapFrom(src => src.OwnerId));
             
 
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReadyApp.Api.Models;
+using ReadyApp.Api.Models.Referance;
 using ReadyApp.Data.Services;
 using ReadyApp.Domain;
 
@@ -57,23 +58,26 @@ namespace ReadyApp.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<OwnerDto> CreateOwnerForBusiness(Guid businessId, OwnerRegisterDto ownerRegister)
+        public ActionResult<OwnerDto> CreateOwnerForBusiness(Guid userId, Guid businessId, OwnerReferanceDto ownerRegister)
         {
-            //if (_ownerRepository.OwnerExistForBusiness(businessId, ownerRegister.UserId)) return BadRequest();
+            
             //ownerRegister.BusinessId = businessId;
             // mapping register data to a owner object
             var owner = _mapper.Map<Owner>(ownerRegister);
-
+            if(_ownerRepository.GetOwnersForBusiness(businessId).Count() <= 1) owner.UserId = userId;
+            owner.BusinessId = businessId;
+            if (_ownerRepository.OwnerExistForBusiness(owner)) return BadRequest();
             // check if owner is already an owner of business
             //if (_ownerRepository.OwnerExistForBusiness(owner)) return BadRequest();
             // assuming all worked well then add owner to data store
-            //_ownerRepository.CreateOwner(businessId, owner);
-            //_ownerRepository.Save();
+            _ownerRepository.CreateOwner(businessId, owner);
+            _ownerRepository.Save();
 
             var ownerToReturn = _mapper.Map<OwnerDto>(owner);
+
             return CreatedAtRoute(
                 "GetBusinessOwner",
-                new { userId = ownerToReturn.UserId,businessId = businessId, ownerId = ownerToReturn.OwnerId },
+                new { userId = ownerToReturn.UserId,businessId = businessId, ownerId = ownerToReturn.Id },
                 ownerToReturn);
 
         }

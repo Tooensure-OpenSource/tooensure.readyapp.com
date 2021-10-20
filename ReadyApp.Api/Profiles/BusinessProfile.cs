@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ReadyApp.Api.Models;
+using ReadyApp.Api.Models.Creation;
 using ReadyApp.Domain.Entity;
 
 namespace ReadyApp.Api.Profiles
@@ -8,6 +9,9 @@ namespace ReadyApp.Api.Profiles
     {
         public BusinessProfile()
         {
+            CreateMap<BusinessCreationDto, Business>();
+
+
             CreateMap<Business, BusinessDto>()
                 .ForMember(
                     dest => dest.BusinessId,
@@ -15,14 +19,6 @@ namespace ReadyApp.Api.Profiles
                 .ForMember(
                     dest => dest.BusinessName,
                     opt => opt.MapFrom(src => src.Name));
-
-            CreateMap<BusinessRegisterDto, Business>()
-                .ForMember(
-                    dest => dest.Username,
-                    opt => opt.MapFrom(src => src.Username))
-                .ForMember(
-                    dest => dest.Name,
-                    opt => opt.MapFrom(src => src.Name.Trim()));
 
 
         }

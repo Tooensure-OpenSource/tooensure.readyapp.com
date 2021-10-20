@@ -32,7 +32,6 @@ namespace ReadyApp.Data.Services
         /// <param name="businessId"></param>
         /// <returns>Owners of specific business id prarm</returns>
         IEnumerable<Owner> GetOwnersForBusiness(Guid businessId);
-        Owner GetOwnerForBusiness(Guid userId, Guid businessId);
 
         // Global scope of business
         /// <summary>
@@ -46,7 +45,7 @@ namespace ReadyApp.Data.Services
         /// <param name="ownerId"></param>
         /// <returns></returns>
         bool OwnerExists(Guid ownerId);
-        bool OwnerExistForBusiness(Guid businessId, Guid userId);
+        bool OwnerExistForBusiness(Owner owner);
         void CreateOwner(Guid businessId, Owner owner);
         void Save();
     }

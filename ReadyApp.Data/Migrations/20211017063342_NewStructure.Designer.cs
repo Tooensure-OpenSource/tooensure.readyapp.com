@@ -3,21 +3,38 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ReadyApp.Data;
 
 namespace ReadyApp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211017063342_NewStructure")]
+    partial class NewStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("EmployeeEmployer", b =>
+                {
+                    b.Property<Guid>("EmployeesEmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EmployersEmployerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EmployeesEmployeeId", "EmployersEmployerId");
+
+                    b.HasIndex("EmployersEmployerId");
+
+                    b.ToTable("EmployeeEmployer");
+                });
 
             modelBuilder.Entity("OrderOrderItem", b =>
                 {
@@ -55,22 +72,20 @@ namespace ReadyApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("BusinessId");
-
-                    b.HasIndex("UserId");
-
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("ReadyApp.Domain.Entities.Employer", b =>
+                {
+                    b.Property<Guid>("EmployerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EmployerId");
+
+                    b.ToTable("Employers");
                 });
 
             modelBuilder.Entity("ReadyApp.Domain.Entity.Business", b =>
@@ -85,6 +100,9 @@ namespace ReadyApp.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("EmployerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,6 +116,8 @@ namespace ReadyApp.Data.Migrations
 
                     b.HasKey("BusinessId");
 
+                    b.HasIndex("EmployerId");
+
                     b.ToTable("Businesses");
                 });
 
@@ -110,6 +130,9 @@ namespace ReadyApp.Data.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -129,6 +152,8 @@ namespace ReadyApp.Data.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Users");
                 });
@@ -253,6 +278,21 @@ namespace ReadyApp.Data.Migrations
                     b.ToTable("ProductItems");
                 });
 
+            modelBuilder.Entity("EmployeeEmployer", b =>
+                {
+                    b.HasOne("ReadyApp.Domain.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ReadyApp.Domain.Entities.Employer", null)
+                        .WithMany()
+                        .HasForeignKey("EmployersEmployerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("OrderOrderItem", b =>
                 {
                     b.HasOne("ReadyApp.Domain.OrderItem", null)
@@ -283,19 +323,26 @@ namespace ReadyApp.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ReadyApp.Domain.Employee", b =>
+            modelBuilder.Entity("ReadyApp.Domain.Entity.Business", b =>
                 {
-                    b.HasOne("ReadyApp.Domain.Entity.Business", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("BusinessId");
-
-                    b.HasOne("ReadyApp.Domain.Entity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("ReadyApp.Domain.Entities.Employer", "Employer")
+                        .WithMany("Businesses")
+                        .HasForeignKey("EmployerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Employer");
+                });
+
+            modelBuilder.Entity("ReadyApp.Domain.Entity.User", b =>
+                {
+                    b.HasOne("ReadyApp.Domain.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("ReadyApp.Domain.Order", b =>
@@ -354,10 +401,13 @@ namespace ReadyApp.Data.Migrations
                         .HasForeignKey("BusinessId");
                 });
 
+            modelBuilder.Entity("ReadyApp.Domain.Entities.Employer", b =>
+                {
+                    b.Navigation("Businesses");
+                });
+
             modelBuilder.Entity("ReadyApp.Domain.Entity.Business", b =>
                 {
-                    b.Navigation("Employees");
-
                     b.Navigation("Orders");
 
                     b.Navigation("Owners");

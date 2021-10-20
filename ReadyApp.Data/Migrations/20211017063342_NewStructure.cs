@@ -3,17 +3,39 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ReadyApp.Data.Migrations
 {
-    public partial class AddingGuids : Migration
+    public partial class NewStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employers",
+                columns: table => new
+                {
+                    EmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employers", x => x.EmployerId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "ProductItems",
                 columns: table => new
                 {
                     ProductItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExperationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -26,15 +48,22 @@ namespace ReadyApp.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Users_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,67 +71,69 @@ namespace ReadyApp.Data.Migrations
                 columns: table => new
                 {
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Businesses", x => x.BusinessId);
                     table.ForeignKey(
-                        name: "FK_Businesses_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
-                    table.ForeignKey(
-                        name: "FK_Customers_Businesses_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Businesses",
-                        principalColumn: "BusinessId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Customers_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        name: "FK_Businesses_Employers_EmployerId",
+                        column: x => x.EmployerId,
+                        principalTable: "Employers",
+                        principalColumn: "EmployerId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "EmployeeEmployer",
                 columns: table => new
                 {
-                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeesEmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployersEmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeEmployer", x => new { x.EmployeesEmployeeId, x.EmployersEmployerId });
+                    table.ForeignKey(
+                        name: "FK_EmployeeEmployer_Employees_EmployeesEmployeeId",
+                        column: x => x.EmployeesEmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeEmployer_Employers_EmployersEmployerId",
+                        column: x => x.EmployersEmployerId,
+                        principalTable: "Employers",
+                        principalColumn: "EmployerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    dateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsReady = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.EmployeeId);
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Employees_Businesses_BusinessId",
+                        name: "FK_Orders_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
                         principalColumn: "BusinessId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Employees_Users_UserId",
+                        name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -115,8 +146,9 @@ namespace ReadyApp.Data.Migrations
                 {
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Ownerhship = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,7 +172,7 @@ namespace ReadyApp.Data.Migrations
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Header = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PriceTag = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -162,7 +194,7 @@ namespace ReadyApp.Data.Migrations
                 {
                     OrderItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,7 +204,7 @@ namespace ReadyApp.Data.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,56 +232,38 @@ namespace ReadyApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "OrderOrderItem",
                 columns: table => new
                 {
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    dateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    isReady = table.Column<bool>(type: "bit", nullable: false),
-                    CustomerId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    OrderItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    OrderItemsOrderItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrdersOrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.PrimaryKey("PK_OrderOrderItem", x => new { x.OrderItemsOrderItemId, x.OrdersOrderId });
                     table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId1",
-                        column: x => x.CustomerId1,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_OrderItems_OrderItemId",
-                        column: x => x.OrderItemId,
+                        name: "FK_OrderOrderItem_OrderItems_OrderItemsOrderItemId",
+                        column: x => x.OrderItemsOrderItemId,
                         principalTable: "OrderItems",
                         principalColumn: "OrderItemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderOrderItem_Orders_OrdersOrderId",
+                        column: x => x.OrdersOrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Businesses_UserId",
+                name: "IX_Businesses_EmployerId",
                 table: "Businesses",
-                column: "UserId");
+                column: "EmployerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_BusinessId",
-                table: "Customers",
-                column: "BusinessId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customers_UserId",
-                table: "Customers",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_BusinessId",
-                table: "Employees",
-                column: "BusinessId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_UserId",
-                table: "Employees",
-                column: "UserId");
+                name: "IX_EmployeeEmployer_EmployersEmployerId",
+                table: "EmployeeEmployer",
+                column: "EmployersEmployerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_ProductId",
@@ -257,14 +271,19 @@ namespace ReadyApp.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CustomerId1",
-                table: "Orders",
-                column: "CustomerId1");
+                name: "IX_OrderOrderItem_OrdersOrderId",
+                table: "OrderOrderItem",
+                column: "OrdersOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderItemId",
+                name: "IX_Orders_BusinessId",
                 table: "Orders",
-                column: "OrderItemId");
+                column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Owners_BusinessId",
@@ -285,15 +304,20 @@ namespace ReadyApp.Data.Migrations
                 name: "IX_Products_BusinessId",
                 table: "Products",
                 column: "BusinessId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_EmployeeId",
+                table: "Users",
+                column: "EmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "EmployeeEmployer");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "OrderOrderItem");
 
             migrationBuilder.DropTable(
                 name: "Owners");
@@ -302,10 +326,10 @@ namespace ReadyApp.Data.Migrations
                 name: "ProductProductItem");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "OrderItems");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "ProductItems");
@@ -314,10 +338,16 @@ namespace ReadyApp.Data.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Businesses");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Employers");
         }
     }
 }

@@ -8,46 +8,33 @@ using System.Threading.Tasks;
 
 namespace ReadyApp.Domain.Entity
 {
-    public enum occupation
-    {
-        Employee = 1,
-        Owner = 2,
-    }
     public class Business
     {
         [Key]
         public Guid BusinessId { get; private set; }
-        [Required]
-        public string? Name {  get; private set; }
+
+        public string Name { get; set; }
+
         [Required]
         public string? Username { get; private set; }
         public string? Description {  get; private set; }
         public string? Type {  get; private set; }
+
+        public DateTime? CreatedDate { get; set; }
+
         [Required]
         public List<Owner>? Owners { get; set; }
         public List<Employee>? Employees { get; set; }
         public List<Product>? Products { get; set; }
-        public List<Customer> Customers { get; set; }
-        // Constructor instances
-        public Business() {
-            Products = new List<Product>();
+        public List<Order>? Orders { get; set; }
+
+        public Business()
+        {
             Owners = new List<Owner>();
             Employees = new List<Employee>();
-            Customers = new List<Customer>();
+            Products = new List<Product>();
+            Orders = new List<Order>();
         }
-        /// <summary>
-        /// Create a instance of a business object and add owners
-        /// </summary>
-        /// <param name="owners">Sets user and passes that owners id into forign owners id</param>
-        public Business(Owner owner) => Owners?.Add(owner);
-        public Business(Owner owner, string name, string usernme)
-        {
-            Owners?.Add(owner);
-            Name = name;
-            Username = usernme;
-        }
-        public Business(Employee employee) => Employees?.Add(employee);
-        public Business(Customer customers) => Customers?.Add(customers);
 
     }
 }

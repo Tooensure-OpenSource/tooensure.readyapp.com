@@ -2,34 +2,26 @@
 using ReadyApp.Domain.inheritances;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ReadyApp.Domain
 {
-    public class Owner : BusinessMap
+    public class Owner
     {
+        [Key]
         public Guid OwnerId { get; private set; }
+
+        [Required(ErrorMessage = "Ownership is required")]
         public decimal Ownerhship { get; set; }
-        public Owner()
-        {
-                
-        }
-        public Owner(Guid userId, Guid businessId)
-        {
-                UserId = userId;
-                BusinessId = businessId;
-        }
-        // Foirgn Keys
+        public string? Name { get; private set; }
 
+        public Guid BusinessId { get; set; }
+        public Business? Business { get; set; }
 
-
-        /// <summary>
-        /// Something just interests by writing code like new Business(new Owner(new User())).
-        /// Mapping the user this way may be intelligence
-        /// </summary>
-        /// <param name="user"></param>
-       //public Owner(User user) => UserId = user.UserId;
+        public Guid UserId { get; set; }
+        public User? User { get; set; }
     }
 }

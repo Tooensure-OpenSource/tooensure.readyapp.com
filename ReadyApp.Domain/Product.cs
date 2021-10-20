@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,12 @@ namespace ReadyApp.Domain
 {
     public class Product
     {
+        [Key]
         public Guid ProductId { get; private set; }
-        public string Header { get; set; }
+
+        [Required]
+        public string Name {  get; private set; } 
+        
         public string Description { get; set; }
         public decimal PriceTag { get; set; }
         public List<ProductItem>? ProductItems { get; set; }
@@ -21,13 +26,6 @@ namespace ReadyApp.Domain
         {
             ProductItems = new List<ProductItem>();
         }
-        /// <summary>
-        /// Set product with pre-built product items
-        /// </summary>
-        /// <param name="productItems"></param>
-        public Product(List<ProductItem> productItems)
-        {
-            ProductItems = productItems; ;
-        }
+        
     }
 }

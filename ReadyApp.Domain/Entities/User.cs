@@ -15,28 +15,21 @@ namespace ReadyApp.Domain.Entity
     {
         [Key]
         public Guid UserId { get; private set; }
-        public string Username { get; set; }
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
-        public List<Business> Businesses { get; set; }
 
-        // Constructor instances
-        public User() {
-            Businesses = new List<Business>();}
-        /// <summary>
-        /// Create user object by using this instance
-        /// </summary>
-        /// <param name="username">All users must have username for auth and other purposes</param>
-        /// <param name="email">All users must have email for auth and other purposes</param>
-        /// <param name="password">All users must have password for auth and other purposes</param>
-        public User(string username, string email, string password)
+        [Required, MaxLength(20, ErrorMessage = "Username max charater length is 20")] 
+        public string? Username { get; set; }
+
+        [Required, EmailAddress(ErrorMessage = "Not a valid email address")] 
+        public string? Email { get; set; }
+
+        [Required] 
+        public string? Password { get; set; }
+
+        public List<Order> Orders { get; set; }
+
+        public User()
         {
-            Username = username;
-            Email = email;
-            Password = password;
+            Orders = new List<Order>();
         }
-
     }
 }

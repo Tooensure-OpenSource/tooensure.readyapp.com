@@ -12,26 +12,17 @@ namespace ReadyApp.Domain
     /// <summary>
     /// In a employee logic: new Business(new Employee(new User)) will map owner current user around the business
     /// </summary>
-    public class Employee : BusinessMap
+    public class Employee
     {
+        [Key]
         public Guid EmployeeId { get; private set; }
 
+        public string? Name { get; set; }
+
+        public Guid UserId { get; set; }
+        public User? User { get; set; }
 
 
-        /// <summary>
-        /// Initulize Business Constructor
-        /// </summary>
-        public Employee() => Console.WriteLine("Initulize Business");
-        //public Employee(User user) => UserId = user.UserId;
 
-        //override User GetUser()
-        //{
-        // return User
-        //}
-
-        //override GetBusiness()
-        //{
-
-        //}
     }
 }
